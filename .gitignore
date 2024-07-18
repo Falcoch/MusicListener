@@ -1,0 +1,15 @@
+**.mp3
+**.wav
+**.ogg
+**.flac
+
+**.dll
+**.exe
+**.pdb
+**.pdf
+
+**/.vscode
+**/old
+**/include
+**/library
+**/build

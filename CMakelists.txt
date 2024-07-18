@@ -1,0 +1,71 @@
+cmake_minimum_required(VERSION 3.1)
+cmake_policy(SET CMP0091 NEW)
+
+#==============================================================
+#                           Configuration
+#==============================================================
+
+set(PROJECT_NAME "Music")
+set(EXECUTABLE_NAME "main")
+
+set(CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD ${CXX_STANDARD})
+
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+#if(WIN32)
+#	option(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake")
+#elseif(UNIX)
+#	option(CMAKE_TOOLCHAIN_FILE "/usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake")	
+#endif()
+
+# C:/vcpkg/vcpkg/scripts\buildsystems/vcpkg.cmake
+
+#==============================================================
+#                           Sources
+#==============================================================
+
+set(SOURCES ${CMAKE_SOURCE_DIR}/source)
+set(LIBRARY ${CMAKE_SOURCE_DIR}/library)
+set(INCLUDE ${CMAKE_SOURCE_DIR}/include)
+
+#==============================================================
+#                           Directory
+#==============================================================
+
+include_directories(${INCLUDE})
+link_directories(${LIBRARY})
+
+#==============================================================
+#                           Build
+#==============================================================
+
+project(${PROJECT_NAME})
+set(CURRENT_TARGET ${EXECUTABLE_NAME})
+
+add_executable(${CURRENT_TARGET})
+
+foreach(dir ${SOURCES})
+    add_subdirectory(${dir})
+endforeach()  
+
+set_property(TARGET ${CURRENT_TARGET} PROPERTY RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}>)
+
+#==============================================================
+#                           Linking
+#==============================================================
+
+target_link_libraries(${CURRENT_TARGET} PRIVATE fmod_vc)
+target_link_libraries(${CURRENT_TARGET} PRIVATE fmodstudio_vc)
+
+find_package(GLEW  REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(imgui REQUIRED)
+find_package(tinyfiledialogs REQUIRED)
+
+target_link_libraries(${CURRENT_TARGET} PRIVATE GLEW::GLEW)
+target_link_libraries(${CURRENT_TARGET} PRIVATE glfw)
+target_link_libraries(${CURRENT_TARGET} PRIVATE imgui::imgui)
+target_link_libraries(${CURRENT_TARGET} PRIVATE tinyfiledialogs::tinyfiledialogs)
+

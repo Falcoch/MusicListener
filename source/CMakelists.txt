@@ -1,0 +1,4 @@
+target_include_directories(${CURRENT_TARGET} PRIVATE .)
+
+file(GLOB_RECURSE SOURCE ./**.cpp)
+target_sources(${CURRENT_TARGET} PRIVATE ${SOURCE})
