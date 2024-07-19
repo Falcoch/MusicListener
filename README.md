@@ -19,3 +19,9 @@
 
 - [CMake](https://cmake.org/)
 - [VCPKG](https://vcpkg.io/en/)
+
+## TODO
+
+- List
+- Parameter
+- Complet this file.
