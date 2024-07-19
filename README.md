@@ -7,6 +7,10 @@
 
 *Central image from the ablum of freedom planet 1.*
 
+## In some words
+
+It's probably a big Frankenstein creature made of libraries, but I like it.
+
 ## Library
 
 - [FMOD Core API](https://www.fmod.com/docs/2.03/api/core-api.html)
