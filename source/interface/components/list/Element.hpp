@@ -48,5 +48,8 @@ namespace tock::interface::list {
 
             inline friend bool operator==(const Element & a, const Element & b) {return a._path == b._path;}
             inline friend bool operator!=(const Element & a, const Element & b) {return !(a == b);}
+
+            inline friend bool operator==(const Element & a, const audio::Sound & b) {return a._path == b.path();}
+            inline friend bool operator!=(const Element & a, const audio::Sound & b) {return !(a == b);}
     };
 }

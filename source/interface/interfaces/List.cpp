@@ -32,6 +32,18 @@ namespace tock::interface {
         element.setSelected(true);
     }
 
+    void List::play(const audio::Sound & sound) {
+        std::optional<std::reference_wrapper<list::Element>> exist = this->find(sound);
+        if(exist.has_value()) {
+            this->play(exist.value());
+            return;
+        }
+
+        std::unique_ptr<list::Element> element = std::make_unique<list::Element>(this, sound.path());
+        this->play(*element.get());
+        this->_elements.push_back(std::move(element));
+    }
+
     void List::play(const std::filesystem::path & path) {
         for(auto & element : this->_elements) {
             if(element->path() == path) {
@@ -132,6 +144,24 @@ namespace tock::interface {
             }
         }
         return false;
+    }
+
+    std::optional<std::reference_wrapper<list::Element>> List::find(const audio::Sound & sound) const {
+        for(auto & element : this->_elements) {
+            if(*element.get() == sound) {
+                return std::optional<std::reference_wrapper<list::Element>>(*element.get());
+            }
+        }
+        return std::optional<std::reference_wrapper<list::Element>>();
+    }
+
+    std::optional<std::reference_wrapper<list::Element>> List::find(const std::filesystem::path & path) const {
+        for(auto & element : this->_elements) {
+            if(element->path() == path) {
+                return std::optional<std::reference_wrapper<list::Element>>(*element.get());
+            }
+        }
+        return std::optional<std::reference_wrapper<list::Element>>();
     }
 
     void List::render(double time) {

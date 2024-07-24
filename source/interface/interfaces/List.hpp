@@ -31,6 +31,7 @@ namespace tock::interface {
             inline const Player & player() {return this->_player;}
 
             void play(list::Element &);
+            void play(const audio::Sound &);
             void play(const std::filesystem::path &);
 
             void add(const std::filesystem::path &);
@@ -49,6 +50,9 @@ namespace tock::interface {
 
             bool contain(const audio::Sound &) const;
             bool contain(const std::filesystem::path &) const;
+
+            std::optional<std::reference_wrapper<list::Element>> find(const audio::Sound &) const;
+            std::optional<std::reference_wrapper<list::Element>> find(const std::filesystem::path &) const;
 
             void render(double); 
             void update(double);
