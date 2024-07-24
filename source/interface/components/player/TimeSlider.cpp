@@ -40,10 +40,12 @@ namespace tock::interface::player {
         std::chrono::seconds seconds_max = std::chrono::duration_cast<std::chrono::seconds>(milisecondMax % std::chrono::minutes(1));
         std::chrono::minutes minutes_max = std::chrono::duration_cast<std::chrono::minutes>(milisecondMax);
 
-        ImGui::Text("  %u:%s%u / %u:%s%u", 
+        ImGui::Text("  %s%u:%s%u / %s%u:%s%u", 
+            minutes < std::chrono::minutes(10) ? "0" : "",
             minutes,
             seconds < std::chrono::seconds(10) ? "0" : "",
             seconds, 
+            minutes_max < std::chrono::minutes(10) ? "0" : "",
             minutes_max,
             seconds_max < std::chrono::seconds(10) ? "0" : "",
             seconds_max
