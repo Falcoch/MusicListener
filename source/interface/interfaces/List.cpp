@@ -10,8 +10,13 @@ namespace tock::interface {
     : Interface(manager), 
       _player(player),
       _titlebar(this),
-      _buttons(this) {
+      _buttons(this),
+      _header(this) {
         std::cout << "Construct List Interface" << std::endl;
+         int width = 0, height = 0, channels = 4;
+        unsigned char * data = stbi_load("assets/texture/button/line.png", &width, &height, &channels, 0);
+        this->_decoration.store(width, height, data, channels == 4 ? utils::Texture::RGBA : utils::Texture::RGB);
+        stbi_image_free(data);
     }
 
     List::~List() {
@@ -176,6 +181,9 @@ namespace tock::interface {
             ImGui::BeginChild("List", ImVec2(0, 0), 0, ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
             this->_buttons.render(time);
+            this->_header.render(time);
+
+            ImGui::Image((void*)(intptr_t)this->_decoration.identifier(), ImVec2(ImGui::GetWindowWidth(), 32.f));
 
             if(!this->_elements.empty()) {
                 int id = 0;
@@ -187,7 +195,12 @@ namespace tock::interface {
                 }
             }
             else {
-                ImGui::Text("No Tracks Loaded");
+                static std::string text = "No Tracks Loaded";
+                static float text_size = ImGui::CalcTextSize(text.c_str()).x;
+
+                ImGui::SetCursorPos(ImVec2(ImGui::GetWindowWidth()/2.f - text_size/2.f, ImGui::GetCursorPosY()));
+
+                ImGui::Text(text.c_str());
             }
 
             ImGui::EndChild();

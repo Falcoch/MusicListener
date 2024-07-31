@@ -10,6 +10,7 @@
 #include "../components/list/Titlebar.hpp"
 #include "../components/list/Buttons.hpp"
 #include "../components/list/Element.hpp"
+#include "../components/list/Header.hpp"
 
 #include "../../utils/Window.hpp"
 
@@ -21,6 +22,8 @@ namespace tock::interface {
 
             list::Titlebar _titlebar;
             list::Buttons _buttons;
+            list::Header _header;
+            utils::Texture _decoration;
             std::vector<std::unique_ptr<list::Element>> _elements;
 
         public:

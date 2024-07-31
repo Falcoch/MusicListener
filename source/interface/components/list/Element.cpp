@@ -65,24 +65,10 @@ namespace tock::interface::list {
 
         ImGui::PushStyleColor(ImGuiCol_ChildBg, bgColor);
         ImGui::BeginChild("##Element", ImVec2(ImGui::GetWindowWidth(), buttonSize), 0, 0);
-        ImGui::Columns(3, "#Element", false);
-        
-        {        
-            ImGui::SetColumnWidth(ImGui::GetColumnIndex(), buttonSize);
-            audio::Sound * current = this->parent()->player().currentTrack();
-            bool isCurrent = current != nullptr && current->path() == this->_path.string();
-            if(isCurrent) {
-                ImGui::Text("\n\n   >\n");
-            }
-            else {
-                ImGui::Text("\n\n   .\n");
-            }
-        }
-
-        ImGui::NextColumn();
+        ImGui::Columns(2, "#Element", false);
 
         {
-            float collumnWidth = ImGui::GetWindowWidth() - (buttonSize * 2);
+            float collumnWidth = ImGui::GetWindowWidth() - buttonSize;
             ImGui::SetColumnWidth(ImGui::GetColumnIndex(), collumnWidth);
             ImGui::PushStyleColor(ImGuiCol_Button, this->_selected ? ImGui::GetStyleColorVec4(ImGuiCol_Button) : ImGui::GetStyleColorVec4(ImGuiCol_WindowBg));
 

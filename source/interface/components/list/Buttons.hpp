@@ -12,10 +12,13 @@ namespace tock::interface {
 namespace tock::interface::list {
     class Buttons : public Component<List> {
         private:
+            utils::Texture _decoration;
             OpenButton _open;
             EraseButton _erase;
+            
 
         public:
+            Buttons() = delete;
             Buttons(List *);
    virtual ~Buttons() = default;
 
